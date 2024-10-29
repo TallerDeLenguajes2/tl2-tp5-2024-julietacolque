@@ -5,8 +5,8 @@ public class Presupuesto
     public int IdPresupuesto { get; set; }
     public string NombreDestinatario { get; set; }
 
+    public DateTime FechaCreacion {get;set;}
     public List<PresupuestoDetalle>Detalle { get; set; } = new();
-
     public double MontoPresupuesto()
     {
         var monto = Detalle.Sum(p => p.ProductoD.Precio * p.Cantidad);

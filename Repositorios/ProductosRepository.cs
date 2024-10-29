@@ -29,7 +29,7 @@ public class ProductosRepository : IProductosRepository
         using var conexion = new SqliteConnection(cadenaConexion);
 
         var query = @"UPDATE Productos SET Descripcion = @des,Precio = @precio WHERE idProducto = @id";
-
+        conexion.Open();
         using (var comando = new SqliteCommand(query, conexion))
         {
             comando.Parameters.Add(new SqliteParameter(@"desc", prod.Descripcion));
@@ -74,11 +74,12 @@ public class ProductosRepository : IProductosRepository
         var prod = new Producto();
         using var conexion = new SqliteConnection(cadenaConexion);
         var query = @"SELECT idProducto,descripcion,precio FROM Productos WHERE idProducto=@id;";
-
+    
+        conexion.Open();
         using var comando = new SqliteCommand(query, conexion);
         comando.Parameters.Add(new SqliteParameter(@"id", id));
 
-        conexion.Open();
+       
         using (var reader = comando.ExecuteReader())
         {
             while (reader.Read())
